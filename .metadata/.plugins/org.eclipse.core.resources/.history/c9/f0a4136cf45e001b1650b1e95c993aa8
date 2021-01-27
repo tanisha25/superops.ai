@@ -1,0 +1,30 @@
+spring:
+ application:
+  name: apigatewayservice
+ cloud:
+  config:
+   uri: http://localhost:8571
+   name: apigate
+  profiles:
+   active: apigatewayservice
+   
+eureka:
+ instance:
+  leaseRenewalIntervalInSeconds: 1
+  leaseExpirationDurationInSeconds: 2
+ client:
+  serviceUrl:
+   defaultZone: http://localhost:8570/eureka/
+zuul:
+  routes:
+    user_service:
+      path: /api/v1/user/**
+      url: http://localhost:8575/
+      service-id: user-service
+      stripPrefix: false
+    payment-service:
+      path: /api/v1/payment/**
+      url: http://localhost:8574/
+      service-id: payment-service
+      stripPrefix: false  
+  

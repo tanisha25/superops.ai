@@ -1,0 +1,33 @@
+package com.springboot.user.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.springboot.user.entity.Theatre;
+import com.springboot.user.repo.TheatreRepository;
+import com.springboot.user.service.TheatreService;
+import com.springboot.user.utils.EnumUtils.Screens;
+import com.springboot.user.utils.Utils;
+
+public class TheatreServiceImpl implements TheatreService {
+
+	@Autowired
+	private TheatreRepository theatreRepository;
+	
+	@Autowired
+	private ScreeningRepository screeningRepository;
+	public void addTheatre(String theatreName) {
+		Theatre theatre = theatreRepository.findByName(theatreName);
+		if(Utils.isEmpty(theatre))
+		{
+			 theatre = new Theatre();
+			 theatre.setName(theatreName);
+			 Screens screens[] = Screens.values();
+			 for(Screens screen : screens)
+			 {
+				 
+			 }
+			 theatreRepository.save(theatre);
+		}
+	}
+	
+}

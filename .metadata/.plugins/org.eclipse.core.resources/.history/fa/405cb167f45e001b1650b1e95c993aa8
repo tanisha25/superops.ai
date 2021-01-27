@@ -1,0 +1,6 @@
+server.port= 8572
+server.tomcat.max-threads:4
+server.address= localhost
+
+ribbon.eureka.enabled : false 
+

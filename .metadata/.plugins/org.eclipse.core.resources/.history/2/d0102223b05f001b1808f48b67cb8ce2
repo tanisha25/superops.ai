@@ -1,0 +1,5 @@
+ckage com.springboot.user.service.impl;
+
+public class SeatBooking {
+
+}

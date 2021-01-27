@@ -1,0 +1,11 @@
+server.address= localhost
+server.port= 8572
+server.tomcat.max-threads:4
+
+ribbon.eureka.enabled : false 
+
+zuul.routes.user_service.serviceId=user-service
+zuul.routes.user_service.path= /api/v1/user/**
+zuul.routes.user_service.url= http://localhost:8575/
+zuul.routes.user_service.stripPrefix: false
+     

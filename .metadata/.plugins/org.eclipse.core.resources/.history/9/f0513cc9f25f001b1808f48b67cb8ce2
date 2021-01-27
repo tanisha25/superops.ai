@@ -1,0 +1,20 @@
+##Spring DataSource
+server.address=localhost
+server.port=8575
+server.tomcat.max-threads:4
+server.servlet.context-path=/api/v1/user/
+
+
+spring.datasource.url=jdbc:postgresql://localhost/superops
+spring.datasource.username=postgres
+spring.datasource.password=password
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.jpa.show-sql = true
+spring.jpa.hibernate.naming.implicit-strategy=org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+spring.jpa.hibernate.naming.physical-strategy=org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+spring.jpa.properties.hibernate.format_sql=true
+spring.data.jpa.repositories.enabled=true 
+spring.jpa.database-platform=org.hibernate.dialect.PostgreSQL9Dialect
+spring.jpa.properties.hibernate.temp.use_jdbc_metadata_defaults = false
+
+

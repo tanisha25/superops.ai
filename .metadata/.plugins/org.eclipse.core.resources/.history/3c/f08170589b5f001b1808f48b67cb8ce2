@@ -1,0 +1,34 @@
+package com.springboot.user.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.springboot.user.entity.Movie;
+import com.springboot.user.repo.MovieRepository;
+import com.springboot.user.repo.TheatreRepository;
+import com.springboot.user.service.MovieService;
+import com.springboot.user.utils.EnumUtils.Movies;
+import com.springboot.user.utils.Utils;
+
+public class MovieServiceImpl implements MovieService{
+
+	@Autowired
+	private MovieRepository movieRepository;
+	
+	@Autowired
+	private TheatreRepository theatreRepository;
+	@Override
+	public void addMovie() {
+		Movies movieArr[]= Movies.values();
+		for(Movies movieName: movieArr) {
+		Movie movie = movieRepository.findByName(movieName.toString());
+		if(Utils.isEmpty(movie))
+		{
+			movie = new Movie();
+			movie.setName(movieName.toString());
+			Theatre t = threatreRepository.findAll();
+			
+		}
+	}
+	}
+
+}

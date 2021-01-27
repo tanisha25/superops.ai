@@ -1,0 +1,18 @@
+package com.springboot.user.service.impl;
+
+import com.springboot.user.entity.User;
+import com.springboot.user.utils.Utils;
+
+public class TheatreServiceImpl implements TheatreService {
+
+	public void addTheatre(String theatreName) {
+		Theatre theatre = theatreRepository.findByName(theatreName);
+		if(Utils.isEmpty(theatre))
+		{
+			 theatre = new User();
+			 theatre.setName(theatreName);
+			 userRepository.save(user);
+		}
+	}
+	
+}

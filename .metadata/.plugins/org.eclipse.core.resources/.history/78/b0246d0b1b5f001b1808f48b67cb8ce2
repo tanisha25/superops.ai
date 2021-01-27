@@ -1,0 +1,22 @@
+package com.springboot.user.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.springboot.shared.entity.User;
+import com.springboot.shared.repo.UserRepository;
+import com.springboot.shared.utils.Utils;
+import com.springboot.user.service.UserService;
+
+public class UserServiceImpl implements UserService{
+
+	@Autowired
+	private UserRepository userRepository;
+	@Override
+	public void addUser(String userName) {
+		User user = userRepository.findByName(userName);
+		if(!Utils.isEmpty(user))
+	}
+
+	
+
+}

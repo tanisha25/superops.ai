@@ -1,0 +1,5 @@
+package com.springboot.user.utils;
+
+public class EnumUtils {
+
+}

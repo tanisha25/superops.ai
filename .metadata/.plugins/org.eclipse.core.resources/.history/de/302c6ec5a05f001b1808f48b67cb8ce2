@@ -1,0 +1,7 @@
+package com.springboot.user.utils;
+
+public interface Constants {
+
+	public int SCREEN_MAX_SIZE = 100;
+	public int NO_OF_SEATS_BOOKED = 6;
+}

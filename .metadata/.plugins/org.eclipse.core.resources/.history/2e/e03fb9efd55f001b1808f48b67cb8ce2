@@ -1,0 +1,128 @@
+package com.springboot.user.service.impl;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.springboot.user.entity.Movie;
+import com.springboot.user.entity.Screening;
+import com.springboot.user.entity.SeatBooking;
+import com.springboot.user.entity.Theatre;
+import com.springboot.user.entity.User;
+import com.springboot.user.repo.MovieRepository;
+import com.springboot.user.repo.SeatBookingRepository;
+import com.springboot.user.repo.TheatreRepository;
+import com.springboot.user.repo.UserRepository;
+import com.springboot.user.service.SeatsService;
+import com.springboot.user.utils.Constants;
+import com.springboot.user.utils.EnumUtils.Status;
+import com.springboot.user.utils.Utils;
+
+public class SeatsServiceImpl implements SeatsService{
+
+	@Autowired
+	private TheatreRepository theatreRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
+	
+	@Autowired
+	private MovieRepository movieRepository;
+	
+	@Autowired
+	private SeatBookingRepository seatsBookingRepository;
+	
+	Logger log= LoggerFactory.getLogger(SeatsServiceImpl.class);
+	@Override
+	public void bookSeats(String theatreName, String movieName, String userName, int noOfSeats,int[] seats) throws Exception {
+		Theatre theatre = theatreRepository.findByName(theatreName);
+		if(Utils.isEmpty(theatre))
+		{
+			throw new Exception(Constants.NO_THEATRE_FOUND);
+		}
+		User user = userRepository.findByName(userName);
+		if(Utils.isEmpty(user))
+		{
+			throw new Exception(Constants.NO_USER_FOUND);
+		}
+		Movie movie = movieRepository.findByName(movieName);
+		if(!Utils.isEmpty(movieName))
+		{
+			throw new Exception(Constants.NO_MOVIE_FOUND);
+		}
+		Optional<Screening> screen = theatre.getScreenings().stream().filter(t -> !Utils.isEmpty(t.getMovie())
+				                                 && movie.getId().equals(t.getMovie().getId())).findAny();
+		if(!screen.isPresent())
+		{
+			throw new Exception(Constants.NO_MOVIE_FOUND_IN_THEATRE);
+		}
+		else {
+			if(noOfSeats > Constants.MAX_NO_OF_SEATS_BOOKED)
+				throw new Exception(Constants.MAX_SEAT_MESSAGE);
+			List<SeatBooking> seatBookingList = seatsBookingRepository.findByScreeningAndSeatsRequested(screen.get(), Arrays.stream(seats).boxed().collect(Collectors.toList()), user, Status.paid.name());
+			if(Utils.isEmpty(seatBookingList))
+			{
+				//only one user request
+				SeatBooking seatBookingObj = new SeatBooking();
+				seatBookingObj.setUser(user);
+				seatBookingObj.setScreening(screen.get());
+				seatBookingObj.setStatus(Status.unpaid.name());
+				seatBookingObj.setSeatsRequested(Arrays.stream(seats).boxed().collect(Collectors.toList()));
+				seatsBookingRepository.save(seatBookingObj);
+				log.info("User " + userName+ "allotted "+seatBookingObj.getSeatsRequested().toString()+"seats");
+			}
+			else {
+				//other user request
+				int max = seats.length;
+				int index = 0;
+				int selected = -1;
+				boolean tie = false;
+				for(SeatBooking seatBook : seatBookingList)
+				{
+					if(seatBook.getSeatsRequested().size() == max) {
+						tie = true;
+						selected = index;
+					}
+					else if(seatBook.getSeatsRequested().size()> max) {
+						max=seatBook.getSeatsRequested().size();
+						selected = index;
+						tie = false;
+					}
+					index++;
+				}
+				int n=0;
+				if(tie) {
+					n = (int) Math.random() % 2;
+					if(n == 1) {
+						log.info("User " + userName+ "allotted "+seatBookingList.get(selected).getSeatsRequested().toString()+"seats");
+						seatBookingList.remove(selected);
+						seatBookingList.forEach(s->{s.setDeleted(true);});
+						seatsBookingRepository.saveAll(seatBookingList);
+					}
+					
+				}
+				else if((selected == -1 && max == seats.length)||(tie && n == 0))
+				{// no tie new request gets the seat
+					SeatBooking booking = new SeatBooking();
+					booking.setUser(user);
+					booking.setScreening(screen.get());
+					booking.setSeatsRequested(Arrays.stream(seats).boxed().collect(Collectors.toList()));
+					booking.setStatus(Status.unpaid.name());
+					booking.setDeleted(false);
+					seatBookingList.forEach(s -> {s.setDeleted(true); });
+					seatBookingList.add(booking);
+					seatsBookingRepository.saveAll(seatBookingList);
+				}
+				
+			}
+		}
+	}
+	
+	
+
+}

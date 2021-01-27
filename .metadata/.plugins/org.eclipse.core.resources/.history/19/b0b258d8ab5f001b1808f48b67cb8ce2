@@ -1,0 +1,19 @@
+package com.springboot.user.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.springboot.user.service.SeatsService;
+
+public class SeatsController {
+	@Autowired
+	private SeatsService seatBookingService;
+	@RequestMapping(value="/book/seats/{theatreName}/{movieName}/{userName}/{noOfSeats}",method = RequestMethod.GET)
+	public void bookSeats(@PathVariable String theatreName, @PathVariable String movieName, @PathVariable String userName, @PathVariable int noOfSeats) throws Exception
+	{
+		seatBookingService.bookSeats(theatreName, movieName, userName, noOfSeats);
+	}
+	
+}

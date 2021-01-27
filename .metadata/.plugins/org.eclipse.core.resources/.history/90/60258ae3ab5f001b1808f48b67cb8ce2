@@ -1,0 +1,7 @@
+package com.springboot.user.service;
+
+public interface SeatsService {
+	
+	public void bookSeats(String theatreName, String movieName, String userName, int noOfSeats) throws Exception;
+
+}

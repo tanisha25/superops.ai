@@ -1,0 +1,14 @@
+package com.springboot.user.repo;
+
+import java.util.UUID;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.springboot.user.entity.Screening;
+import com.springboot.user.entity.SeatBooking;
+import com.springboot.user.entity.Seats;
+
+public interface SeatBookingRepository extends JpaRepository<SeatBooking, UUID>{
+	
+	Seats findByScreeningAndSeatsRequested(Screening screen, List<Integer> seatsRequested)
+}

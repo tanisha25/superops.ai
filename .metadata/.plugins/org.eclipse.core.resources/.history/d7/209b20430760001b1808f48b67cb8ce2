@@ -1,0 +1,19 @@
+package com.springboot.user.repo;
+
+import java.util.List;
+import java.util.UUID;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import com.springboot.user.entity.Screening;
+import com.springboot.user.entity.SeatBooking;
+
+@Repository
+public interface SeatBookingRepository extends JpaRepository<SeatBooking, UUID>{
+	
+	@Query(value = "SELECT * FROM SeatBooking u WHERE u.screening_id = ?1 && u.seats_requested in (?2) && u.status == ?3 && u.deleted = false", nativeQuery =true)
+	List<SeatBooking> findByScreeningAndSeatsRequested(Screening screen, List<Integer> seatsRequested, String status);
+	
+}

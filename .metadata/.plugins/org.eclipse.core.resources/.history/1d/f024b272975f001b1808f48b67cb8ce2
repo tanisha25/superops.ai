@@ -1,0 +1,20 @@
+package com.springboot.user.service.impl;
+
+import com.springboot.user.entity.Movie;
+import com.springboot.user.service.MovieService;
+import com.springboot.user.utils.Utils;
+
+public class MovieServiceImpl implements MovieService{
+
+	@Autowired
+	private MovieRepository movieRepository;
+	@Override
+	public void addMovie(String movie) {
+		Movie movie = movieRepository.findByName(movie);
+		if(Utils.isEmpty(movie))
+		{
+			
+		}
+	}
+
+}

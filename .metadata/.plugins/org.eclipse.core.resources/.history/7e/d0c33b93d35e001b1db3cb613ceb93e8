@@ -1,0 +1,5 @@
+package com.springboot.apigateway.filter;
+
+public class SimpleFilter {
+
+}

@@ -1,0 +1,5 @@
+package com.springboot.microservice;
+
+public class MicroserviceConfigServerApplication {
+
+}

@@ -1,0 +1,9 @@
+package com.springboot.user.utils;
+
+public interface Constants {
+
+	public int SCREEN_MAX_SIZE = 100;
+	public int MAX_NO_OF_SEATS_BOOKED = 6;
+	public String NO_THEATRE_FOUND="No such theatre found";
+	public String NO_USER_FOUND ="User is not registered";
+}

@@ -1,0 +1,22 @@
+spring:
+ application:
+  name: apigatewayservice
+ cloud:
+  config:
+   uri: http://localhost:8571
+   name: apigate
+  profiles:
+   active: apigatewayservice
+   
+eureka:
+ instance:
+  instance-id: api-gateway-service
+  leaseRenewalIntervalInSeconds: 1
+  leaseExpirationDurationInSeconds: 2
+ client:
+  registerwithEureka: true
+  fetchRegistry: true
+  serviceUrl:
+   defaultZone: http://localhost:8570/eureka/
+
+  

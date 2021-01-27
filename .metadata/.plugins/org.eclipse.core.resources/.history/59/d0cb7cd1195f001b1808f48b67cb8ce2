@@ -1,0 +1,11 @@
+package com.springboot.shared.repo;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.springboot.h2.model.Student;
+
+@Repository
+public interface UserRepository extends JpaRepository<User, UUID>{
+
+}

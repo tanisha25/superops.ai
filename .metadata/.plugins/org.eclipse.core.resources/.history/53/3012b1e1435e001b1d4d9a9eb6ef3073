@@ -1,0 +1,14 @@
+##Spring DataSource
+server.port = 8575
+server.tomcat.max-threads : 4
+server.servlet.context-path =/api/v1/user/
+
+spring.datasource.url= jdbc:postgresql://localhost:5432/superops
+spring.datasource.username=postgres
+spring.datasource.password=root
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.hibernate.ddl-auto=true
+spring.jpa.show-sql=true
+
+

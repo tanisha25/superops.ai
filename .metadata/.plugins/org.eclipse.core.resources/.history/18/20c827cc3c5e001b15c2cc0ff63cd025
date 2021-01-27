@@ -1,0 +1,13 @@
+spring:
+ application:
+  name: userservice
+ cloud:
+  config:
+   uri: http://localhost:8571
+   name: userp
+ profiles:
+  active: userservice
+eureka:
+ client:
+  serviceUrl:
+   defaultZone: http://localhost:8570/eureka/

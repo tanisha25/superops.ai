@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+<changeSet id="1524726708020-1" author="tanisha (generated)">
+	<createTable tableName="state_or_union_territories" remarks=" state_or_union_territories table">
+    	<column name = "id" type="uuid">
+   		 	<constraints primaryKey="true" nullable="false"/>
+    	</column>
+	  	<column name="status_code" type="numeric">
+			<constraints unique ="true" nullable="false"/>
+	    </column>
+     	<column name="state_or_territory_name" type="VARCHAR(50)">
+           <constraints unique="true" nullable="false"/>
+        </column> 
+       <column name="created_on" type="datetime"
+               defaultValueComputed="NOW()">
+           <constraints nullable="false" />
+       </column>
+       <column name="updated_on" type="datetime">
+       </column>    
+ 	</createTable>
+</changeSet>
+<changeSet id="1524726708020-2" author="tanisha (generated)">
+	<createTable tableName="district" remarks="district table">
+ 		<column name = "id" type="uuid">
+ 			    <constraints primaryKey="true" nullable="false"/>
+ 		</column>
+	   <column name="district_code" type="numeric">
+			<constraints unique="true" nullable="false"/>
+		</column>
+		<column name="district_name" type="VARCHAR(50)">
+			<constraints unique="true" nullable="false"/>
+		</column>
+		 <column name="created_on" type="datetime"
+                defaultValueComputed="NOW()">
+                <constraints nullable="false" />
+          </column>
+          <column name="updated_on" type="datetime">
+          </column>    
+	 </createTable>
+</changeSet>
+<changeSet id="1524726708020-3" author="tanisha (generated)">
+  <createTable tableName="city_or_town" remarks="city/town table">
+ 	 <column name = "id" type="uuid">
+ 		<constraints primaryKey="true" nullable="false"/>
+ 	</column>
+  	<column name="city_or_town_name" type="VARCHAR(50)">
+		<constraints unique="true" nullable="false"/>
+	</column> 
+	<column name="created_on" type="datetime"
+                defaultValueComputed="NOW()">
+         <constraints nullable="false" />
+    </column>
+    <column name="updated_on" type="datetime">
+    </column>    
+ </createTable>
+ </changeSet>
+ <changeSet id="1524726708020-4" author="tanisha (generated)">
+  <createTable tableName="urban_status" remarks="Urban status table">
+  	<column name = "id" type="uuid">
+ 		<constraints primaryKey="true" nullable="false"/>
+ 	</column>
+	<column name="urban_status_code" type="VARCHAR(10)">
+		<constraints unique="true" nullable="false"/>
+	</column>
+	 <column name="created_on" type="datetime"
+                defaultValueComputed="NOW()">
+        <constraints nullable="false" />
+     </column>
+     <column name="updated_on" type="datetime">
+     </column>    
+	</createTable>
+</changeSet>
+<changeSet id="1524726708020-5" author="tanisha (generated)">
+	<addColumn 
+            schemaName="public"
+            tableName="district">
+        <column name="state_id" type="uuid"/>
+    </addColumn>
+	<addColumn
+        schemaName="public"
+        tableName="city_or_town">
+        <column name ="district_id" type="uuid"/>
+     </addColumn>
+     <addColumn
+          schemaName="public"
+          tableName="urban_status">
+          <column name="city_or_town_id" type="uuid"/>
+     </addColumn>
+</changeSet>
+<changeSet id="1524726708020-6" author="tanisha (generated)">
+	<addForeignKeyConstraint baseColumnNames="state_id" baseTableName="district" baseTableSchemaName="public" constraintName="fk_district_state_id"  deferrable="true" initiallyDeferred="true"  onDelete="CASCADE" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="state_or_union_territories"  referencedTableSchemaName="public"/>
+	<addForeignKeyConstraint baseColumnNames="district_id" baseTableName="city_or_town" baseTableSchemaName="public" constraintName="fk_city_or_town_district_id"  deferrable="true" initiallyDeferred="true"  onDelete="CASCADE" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="district"  referencedTableSchemaName="public"/>
+	<addForeignKeyConstraint baseColumnNames="city_or_town_id" baseTableName="urban_status" baseTableSchemaName="public" constraintName="fk_urban_status_city_or_town_id"  deferrable="true" initiallyDeferred="true"  onDelete="CASCADE" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="city_or_town"  referencedTableSchemaName="public"/>
+</changeSet>	
+<changeSet id="1524726708020-7" author="tanisha (generated)">
+	<renameColumn 
+            columnDataType="numeric"
+            newColumnName="state_code"
+            oldColumnName="status_code"
+            schemaName="public"
+            tableName="state_or_union_territories"/>
+</changeSet>
+<changeSet id="1524726708020-8" author="tanisha(generated)">
+	<dropForeignKeyConstraint 
+            baseTableName="urban_status"
+            baseTableSchemaName="public"
+            constraintName="fk_urban_status_city_or_town_id"/>
+	<dropColumn tableName="urban_status" columnName="city_or_town_id"/>
+	<addColumn schemaName="public"
+          tableName="city_or_town">
+          <column name="urban_status_id" type="uuid"/>
+          </addColumn>
+	<addForeignKeyConstraint baseColumnNames="urban_status_id" baseTableName="city_or_town" baseTableSchemaName="public" constraintName="fk_city_or_town_urban_status_id"  deferrable="true" initiallyDeferred="true"  onDelete="CASCADE" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="urban_status"  referencedTableSchemaName="public"/>        
+</changeSet>
+<changeSet id="1524726708020-9" author="tanisha(generated)">
+ 	<dropUniqueConstraint 
+            constraintName="district_district_code_key"
+            schemaName="public"
+            tableName="district"
+            uniqueColumns="district_code"/>
+</changeSet>
+<changeSet id="1524726708020-10" author="tanisha(generated)">
+ 	<dropUniqueConstraint 
+            constraintName="district_district_name_key"
+            schemaName="public"
+            tableName="district"
+            uniqueColumns="district_code"/>
+</changeSet>      
+<changeSet id="1524726708020-11" author="tanisha(generated)">
+ 	<dropUniqueConstraint 
+            constraintName="state_or_union_territories_status_code_key"
+            schemaName="public"
+            tableName="state_or_union_territories"
+            uniqueColumns="state_code"/>
+</changeSet>
+<changeSet id="1524726708020-12" author="tanisha(generated)">
+ 	<dropUniqueConstraint 
+            constraintName="state_or_union_territories_state_or_territory_name_key"
+            schemaName="public"
+            tableName="state_or_union_territories"
+            uniqueColumns="state_or_territory_name"/>
+</changeSet>      
+<changeSet id="1524726708020-13" author="tanisha(generated)">
+ 	<modifyDataType 
+            columnName="city_or_town_name"
+            newDataType="VARCHAR(100)"
+            schemaName="public"
+            tableName="city_or_town"/>
+</changeSet>
+<changeSet id="1524726708020-14" author="tanisha(generated)">
+	<modifyDataType 
+            columnName="district_code"
+            newDataType="VARCHAR(10)"
+            schemaName="public"
+            tableName="district"/>
+</changeSet>
+<changeSet id="1524726708020-15" author="tanisha(generated)">
+	<modifyDataType 
+            columnName="district_code"
+            newDataType="VARCHAR(20)"
+            schemaName="public"
+            tableName="district"/>
+</changeSet>
+</databaseChangeLog>
+   

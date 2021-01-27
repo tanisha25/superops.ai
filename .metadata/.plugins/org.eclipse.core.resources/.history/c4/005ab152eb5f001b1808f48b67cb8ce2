@@ -1,0 +1,15 @@
+##Spring DataSource
+server.port= 8574
+server.tomcat.max-threads:4
+server.servlet.context-path=/api/v1/payment/
+
+spring.datasource.url=jdbc:postgresql://localhost/superops
+spring.datasource.username=postgres
+spring.datasource.password=password
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.jpa.show-sql = true
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.hibernate.ddl-auto=true
+spring.data.jpa.repositories.enabled=true 
+spring.jpa.database-platform=org.hibernate.dialect.PostgreSQL9Dialect
+spring.jpa.properties.hibernate.temp.use_jdbc_metadata_defaults = false

@@ -1,0 +1,70 @@
+package com.springboot.shared.entity;
+
+import javax.persistence.*;
+
+import java.util.Date;
+import java.util.Set;
+import java.util.UUID;
+
+@Entity
+@Table(name = "screening")
+public class Screening {
+
+    private UUID id;
+    private String name;
+    private Movie movie;
+    private Theatre theatre;
+    private Date createdOn;
+	private Date updatedOn;
+	private UUID createdBy;
+	private UUID updatedBy;
+	
+	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id", nullable = false)
+	public UUID getId() {
+		return id;
+	}
+	public void setId(UUID id) {
+		this.id = id;
+	}
+	
+    @ManyToOne
+    @JoinColumn(name = "movie_id")
+    @JsonManagedReference
+    private Movie movie;
+    @ManyToOne
+    @JoinColumn(name = "movie_id")
+    @JsonManagedReference
+    private Movie movie;
+
+    @ManyToOne
+    @JoinColumn(name = "auditorium_id")
+    @JsonManagedReference
+    private Auditorium auditorium;
+
+    @Column(name = "date")
+    private LocalDate date;
+
+    @Column(name = "start_time")
+    private LocalTime startTime;
+
+    @Column(name = "end_time")
+    private LocalTime endTime;
+
+    @Column(name = "is_full")
+    private Boolean isFull;
+
+    @Column(name = "price")
+    private Double price;
+
+    @OneToMany(mappedBy = "screening", cascade = CascadeType.ALL)
+    @JsonBackReference
+    private Set<SeatBooked> bookedSeats;
+
+    @OneToMany(mappedBy = "screening", cascade = CascadeType.ALL)
+    @JsonBackReference
+    private Set<Booking> bookings;
+    
+    
+}

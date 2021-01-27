@@ -1,0 +1,16 @@
+server:
+ port:8570
+ tomcat:
+  max-threads: 4
+   	
+   
+eureka:
+ client:
+  registryWithEureka:false
+  fetchRegistry:false
+  healthcheck:
+   enabled: false
+  serviceUrl:
+   defaultZone: http://localhost:8570/eureka/
+ instance:
+secure-port-enabled: true

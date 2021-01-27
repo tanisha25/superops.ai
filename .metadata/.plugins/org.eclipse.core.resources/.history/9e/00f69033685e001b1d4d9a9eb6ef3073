@@ -1,0 +1,46 @@
+package com.springboot.shared.entity;
+
+import javax.persistence.*;
+import java.util.Set;
+
+@Entity
+@Table(name = "screening")
+public class Screening {
+
+    private UUID id;
+
+    @ManyToOne
+    @JoinColumn(name = "movie_id")
+    @JsonManagedReference
+    private Movie movie;
+
+    @ManyToOne
+    @JoinColumn(name = "auditorium_id")
+    @JsonManagedReference
+    private Auditorium auditorium;
+
+    @Column(name = "date")
+    private LocalDate date;
+
+    @Column(name = "start_time")
+    private LocalTime startTime;
+
+    @Column(name = "end_time")
+    private LocalTime endTime;
+
+    @Column(name = "is_full")
+    private Boolean isFull;
+
+    @Column(name = "price")
+    private Double price;
+
+    @OneToMany(mappedBy = "screening", cascade = CascadeType.ALL)
+    @JsonBackReference
+    private Set<SeatBooked> bookedSeats;
+
+    @OneToMany(mappedBy = "screening", cascade = CascadeType.ALL)
+    @JsonBackReference
+    private Set<Booking> bookings;
+    
+    
+}

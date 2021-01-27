@@ -1,0 +1,6 @@
+package com.springboot.user.service;
+
+public interface UserService {
+
+	public addUser(String userName);
+}

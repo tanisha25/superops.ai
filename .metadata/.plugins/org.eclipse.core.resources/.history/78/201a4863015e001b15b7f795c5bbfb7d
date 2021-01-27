@@ -1,0 +1,5 @@
+package com.springbootregistry;
+
+public class RegistryServerApplication {
+
+}

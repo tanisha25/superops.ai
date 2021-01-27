@@ -1,0 +1,6 @@
+package com.springboot.user.utils;
+
+public interface Constants {
+
+	public int SCREEN_MAX_SIZE = 100;
+}

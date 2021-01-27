@@ -1,0 +1,39 @@
+server:
+  address: localhost
+  port: 8572
+  tomcat:
+    max-threads: 4
+
+# Tell Spring Security (if used) to require requests over HTTPS
+#security:
+#  require-ssl:true
+
+
+endpoints:
+  jmx:
+    unique-names: false
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+  health:
+    sensitive: false
+zuul:
+  ignoredServices:*
+  routes:
+    userservice:
+      path: /api/v1/user/**
+      url: http://localhost:8575/
+      service-id: userservice
+      stripPrefix: false
+    payment-service:
+      path: /api/v1/payment/**
+      url: http://localhost:8574/
+      service-id: payment-service
+      stripPrefix: false     
+ribbon:
+  eureka:
+    enabled: false
+logging:
+  level.org.: null
+  springframework.security: DEBUG

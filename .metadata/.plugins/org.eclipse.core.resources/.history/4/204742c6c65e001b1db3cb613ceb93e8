@@ -1,0 +1,15 @@
+package com.springboot.shared.entity;
+
+import java.util.Date;
+import java.util.UUID;
+
+public class Seats {
+
+	  private UUID id;
+	  private int name;
+	  private Theatre theatre;
+	  private Date createdOn;
+	  private Date updatedOn;
+	  private UUID createdBy;
+	  private UUID updatedBy;
+}

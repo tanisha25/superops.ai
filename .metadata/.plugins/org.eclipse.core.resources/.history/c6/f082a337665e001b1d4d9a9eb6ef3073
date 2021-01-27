@@ -1,0 +1,5 @@
+package com.springboot.shared.entity;
+
+public class Theatre {
+
+}

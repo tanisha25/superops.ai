@@ -1,0 +1,16 @@
+spring:
+ application:
+  name: payment-service
+ cloud:
+  config:
+   uri: http://localhost:8571
+   name: paymentp
+ profiles:
+  active: payment-service
+server:
+ address: localhost
+ port: 8574
+eureka:
+ client:
+  serviceUrl:
+   defaultZone: http://localhost:8570/eureka/

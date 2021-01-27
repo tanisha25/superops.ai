@@ -1,0 +1,12 @@
+package com.springboot.user.repo;
+
+import java.util.UUID;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.springboot.user.entity.Screening;
+import com.springboot.user.entity.SeatBooking;
+
+public interface SeatBookingRepository extends JpaRepository<SeatBooking, UUID>{
+
+}

@@ -1,0 +1,14 @@
+spring:
+ application:
+  name: payment
+ cloud:
+  config:
+   uri: http://localhost:8571
+   name: paymentp
+ profiles:
+  active: payment
+eureka:
+ client:
+   instance-id: payment
+  serviceUrl:
+   defaultZone: http://localhost:8570/eureka/

@@ -1,0 +1,16 @@
+package com.springboot.user.controller;
+
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+public class MovieController {
+	
+	@Autowired
+	private MovieService movieService;
+	@RequestMapping(value="/add/{movieName}",method = RequestMethod.GET)
+	public void addMovie(@PathVariable String movieName)
+	{
+		userService.addUser(movieName);
+	}
+}

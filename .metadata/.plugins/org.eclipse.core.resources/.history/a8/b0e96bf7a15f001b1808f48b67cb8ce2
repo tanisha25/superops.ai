@@ -1,0 +1,24 @@
+package com.springboot.user.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.springboot.user.entity.Theatre;
+import com.springboot.user.repo.TheatreRepository;
+import com.springboot.user.service.SeatsService;
+import com.springboot.user.utils.Constants;
+import com.springboot.user.utils.Utils;
+
+public class SeatsServiceImpl implements SeatsService{
+
+	@Autowired
+	private TheatreRepository theatreRepository;
+	@Override
+	public void bookSeats(String theatreName, String movieName, String userName) {
+		Theatre theatre = theatreRepository.findByName(theatreName);
+		if(Utils.isEmpty(theatre))
+		{
+			throw new Exception(Constants.NO_THEATRE_FOUNDs);
+		}
+	}
+
+}

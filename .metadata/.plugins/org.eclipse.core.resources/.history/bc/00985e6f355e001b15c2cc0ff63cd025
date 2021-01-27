@@ -1,0 +1,5 @@
+package com.springboot.payment;
+
+public class PaymentServiceApplication {
+
+}

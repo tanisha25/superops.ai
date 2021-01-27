@@ -1,0 +1,5 @@
+package com.springboot.user.repo;
+
+public class SeatsRepository {
+
+}

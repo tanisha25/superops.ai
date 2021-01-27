@@ -1,0 +1,11 @@
+spring:
+ application:
+  name: microserviceconfig
+  
+eureka:
+ client:
+  serviceUrl:
+   defaultZone: http://localhost:8570/eureka/
+ instance:
+  leaseRenewalIntervalInSeconds: 1
+  leaseExpirationDurationInSeconds: 2

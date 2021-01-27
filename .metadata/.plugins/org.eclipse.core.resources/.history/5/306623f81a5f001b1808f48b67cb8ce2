@@ -1,0 +1,17 @@
+package com.springboot.user.service.impl;
+
+import com.springboot.shared.entity.User;
+import com.springboot.shared.utils.Utils;
+import com.springboot.user.service.UserService;
+
+public class UserServiceImpl implements UserService{
+
+	@Override
+	public void addUser(String userName) {
+		User user = userRepository.findByName(userName);
+		if(!Utils.isEmpty(user))
+	}
+
+	
+
+}

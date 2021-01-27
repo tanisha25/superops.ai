@@ -1,0 +1,55 @@
+package com.springboot.user.service.impl;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.springboot.user.entity.Movie;
+import com.springboot.user.entity.Screening;
+import com.springboot.user.entity.Theatre;
+import com.springboot.user.repo.MovieRepository;
+import com.springboot.user.repo.TheatreRepository;
+import com.springboot.user.service.MovieService;
+import com.springboot.user.utils.EnumUtils.Movies;
+import com.springboot.user.utils.Utils;
+
+public class MovieServiceImpl implements MovieService{
+
+	@Autowired
+	private MovieRepository movieRepository;
+	
+	@Autowired
+	private TheatreRepository theatreRepository;
+	@Override
+	public void addMovie() {
+		Movies movieArr[]= Movies.values();
+		for(Movies movieName: movieArr) {
+		Movie movie = movieRepository.findByName(movieName.toString());
+		if(Utils.isEmpty(movie))
+		{
+			List<Theatre> theatres = theatreRepository.findAll();
+			movie = new Movie();
+			if(!Utils.isEmpty(theatres))
+			{
+				theatres.forEach(t -> {
+					movie.setName(movieName.toString());
+				    Set<Screening> screens = t.getScreenings();
+				    if(!Utils.isEmpty(screens))
+				    {
+				    	Optional<Screening> first = screens.stream().findFirst().filter(s-> Utils.isEmpty(s.getMovie()));
+				    	if(first.isPresent())
+				    	{
+				    		Screening s = first.get();
+				    		s.setMovie(movie);
+				    		s.setTheatre(t);
+				    	}
+				    }
+				});
+			}
+		}
+	}
+	}
+
+}
